@@ -11,10 +11,7 @@ import random
 
 
 class Easy2DDeforum:
-    @classmethod
-    def IS_CHANGED(cls, **kwargs):
-        return float("NaN")
-    
+ 
     @classmethod
     def INPUT_TYPES(s):
         return {
