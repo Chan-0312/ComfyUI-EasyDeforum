@@ -4,6 +4,8 @@ import comfy
 from .utils import image_2dtransform
 import torch
 from tqdm import tqdm
+import random
+
 
 
 
@@ -49,6 +51,8 @@ class Easy2DDeforum:
         vaeencode = VAEEncode()
 
         res = [image]
+        seed = random.randint(0, 1000000000)
+
 
         pbar = comfy.utils.ProgressBar(frame)
         for i in tqdm(range(frame)):
@@ -66,7 +70,7 @@ class Easy2DDeforum:
             noise = comfy.sample.prepare_noise(latent["samples"], i, None)
             samples = comfy.sample.sample(model, noise, steps, cfg, sampler_name, scheduler, positive, negative, latent["samples"],
                                         denoise=denoise, disable_noise=False, start_step=None, last_step=None,
-                                        force_full_denoise=False, noise_mask=None, callback=None, disable_pbar=True, seed=i)
+                                        force_full_denoise=False, noise_mask=None, callback=None, disable_pbar=True, seed=seed+i)
         
 
             image = vaedecode.decode(vae, {"samples": samples})[0]
