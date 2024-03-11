@@ -31,6 +31,8 @@ class Easy2DDeforum:
                 "y": ("INT", {"default": 0, "step": 1, "min": -4096, "max": 4096}),
                 "zoom": ("FLOAT", {"default": 0.98, "min": 0.001, "step": 0.01}),
                 "angle": ("INT", {"default": -1, "step": 1, "min": -360, "max": 360}),
+                "denoise_min": ("FLOAT", {"default": 0.40, "min": 0.00, "max": 1.00, "step":0.01}),
+                "denoise_max": ("FLOAT", {"default": 0.60, "min": 0.00, "max": 1.00, "step":0.01}),
             }
         }
 
@@ -40,13 +42,11 @@ class Easy2DDeforum:
 
     CATEGORY = "easyDeforum"
 
-    def apply(self, model, vae, positive, negative, image, frame, steps, cfg, sampler_name, scheduler, x, y, zoom, angle):
+    def apply(self, model, vae, positive, negative, image, frame, steps, cfg, sampler_name, scheduler, x, y, zoom, angle, denoise_min, denoise_max):
         
         # 初始化模型
         vaedecode = VAEDecode()
         vaeencode = VAEEncode()
-        denoise_min = 0.4
-        denoise_max = 0.6
 
         res = [image]
 
